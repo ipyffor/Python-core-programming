@@ -1,10 +1,7 @@
 import re
-# s = 'M. ws'
-# patten = '(Mr)?s?\.'
-# result = re.findall(patten, s)
-# print(result)
-
-
-#
-m = re.match(r"(\w+) (\w+)", "Isaac Newton, physicist")
-print(m.group(0))
+patt = '[A-Za-z]\w*@(\w+\.)*\w+\.com'
+s = 'nobby@www.xxx-yyy.com'
+m = re.match(patt, s)
+print(m)
+n = re.search(patt, s)
+print(n)
