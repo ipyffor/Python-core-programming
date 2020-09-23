@@ -125,3 +125,84 @@ m.groupdict()
 
 ```
 
+### 2. 常用正则匹配例子
+
+#### 2.1 匹配所有单词
+
+```python
+import re
+
+s="my love you not because of who you are, but because of who i am when i am with you"
+
+content=re.findall(r" *(\w+)",s)
+# 或者
+content=re.findall(r"\b\w+\b",s)
+```
+
+#### 2.2 (?:)
+
+在分组前加上?:不会产生分组
+
+示例
+
+```python
+import re
+patt = '\w+@(?:qq|gmail)\.com'
+s = 'my email is 631707329@qq.com'
+r = re.findall(patt, s)
+# ['631707329@qq.com']
+
+patt = '\w+@(qq|gmail)\.com'
+r = re.findall(patt, s)
+# ['qq']
+```
+
+
+
+#### 2.3 匹配IPv4地址
+
+```python
+import re
+s1=s2="""192.168.1.150\n0.0.0.0\n255.255.255.255\n17.16.52.100\n172.6.0.001\n400.400.999.888\n001.022.003.000\n257.257.255.256"""
+
+regex2=re.compile(r'(?:(?:(?:25[0-5])|(?:24[0-9])|(?:1\d{2})|(?:[1-9][0-9])|(?:[0-9]))\.){3}(?:(?:25[0-5])|(?:1\d{2})|(?:[1-9][0-9])|(?:[0-9]\b))')
+t=regex2.findall(s1)
+print(t)
+# ['192.168.1.150', '0.0.0.0', '255.255.255.255', '17.16.52.100']
+```
+
+
+
+#### 2.4 匹配邮箱
+
+```python
+import re
+
+s4="""
+test@hot-mail.com
+v-ip@magedu.com
+web.manager@magedu.com.cn
+super.user@google.com
+a@w-a-com
+"""
+
+patt = r'.*@(?:.*\.)+(?:com|cn)'
+cont = re.findall(patt, s4)
+print(cont)
+# ['test@hot-mail.com', 'v-ip@magedu.com', 'web.manager@magedu.com.cn', 'super.user@google.com']
+```
+
+
+
+### 3 注意事项
+
+#### 3.1 \b 边界的使用
+
+由于该符号属于特殊字符与asc码冲突，使用时在模式字符串前加上r,其他特使字符类似
+
+```python
+import re
+patt = r'\b\w+\b'
+re.findall(patt, '')
+```
+
